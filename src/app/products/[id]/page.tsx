@@ -1,7 +1,8 @@
 import React from 'react';
 
 async function getProduct(id: any) {
-  const res = await fetch(`http://localhost:3000/api`);
+  const baseUrl = process.env.NODE_ENV === 'production' ? 'https://your-vercel-domain.vercel.app' : 'http://localhost:3000';
+  const res = await fetch(`${baseUrl}/api`);
   if (!res.ok) throw new Error('Failed to fetch product');
   const products = await res.json();
   return products.find((product: any) => product.id === id);
@@ -11,7 +12,7 @@ type PageProps = {
   params: { id: string }; // Define params for dynamic routing
 };
 
-export default async function ProductPage({ params }: any) {
+export default async function ProductPage({ params }: PageProps) {
   const product = await getProduct(params.id);
 
   if (!product) {
@@ -34,8 +35,3 @@ export default async function ProductPage({ params }: any) {
     </div>
   );
 }
-
-
-
-
-
