@@ -12,7 +12,7 @@ type PageProps = {
   params: { id: string }; // Define params for dynamic routing
 };
 
-export default async function ProductPage({ params }: PageProps) {
+export default async function ProductPage({ params }: any) {
   const product = await getProduct(params.id);
 
   if (!product) {
